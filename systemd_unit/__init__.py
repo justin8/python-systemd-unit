@@ -9,7 +9,7 @@ class Unit(object):
 
     def __init__(self, name, type="service", content=None):
         self.name = name
-        self.service_name = "portinus-{name}.{type}".format(name=name, type=type)
+        self.service_name = "{name}.{type}".format(name=name, type=type)
         self.service_file_path = os.path.join("/etc/systemd/system", self.service_name)
         self._content = content
 
