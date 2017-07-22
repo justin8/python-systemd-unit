@@ -11,7 +11,7 @@ class Unit(object):
         self.name = name
         self.service_name = "{name}.{type}".format(name=name, type=type)
         self.service_file_path = os.path.join("/etc/systemd/system", self.service_name)
-        self._content = content
+        self.content = content
 
         try:
             self._systemctl(['--help'])
@@ -20,8 +20,13 @@ class Unit(object):
             raise(e)
         log.debug("Initialized systemd.Unit for '{name}' with type '{type}'".format(name=name, type=type))
 
-    def set_content(self, content):
-        self._content = content
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        self._content = value
 
     def create_service_file(self):
         log.info("Creating/updating service file for '{name}' at '{service_file_path}'".format(name=self.name, service_file_path=self.service_file_path))
@@ -29,11 +34,14 @@ class Unit(object):
             f.write(self._content)
 
     def ensure(self, restart=True, enable=True, content=None):
-        if content: self.set_content(content)
+        if content:
+            self.content = content
         self.create_service_file()
         self.reload()
-        if restart: self.restart()
-        if enable: self.enable()
+        if restart:
+            self.restart()
+        if enable:
+            self.enable()
 
     def remove(self):
         try:
