@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="systemd_unit",
-    version="1.0.1",
+    version="1.0.2",
     author="Justin Dray",
     author_email="justin@dray.be",
     url="https://github.com/justin8/python-systemd-unit",
@@ -11,9 +11,6 @@ setup(
     packages=find_packages(),
     license="MIT",
     install_requires=[
-        "click",
-        "docker",
-        "jinja2"
     ],
     tests_require=["nose",
         "coverage",
