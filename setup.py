@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="systemd_unit",
-    version="1.0.2",
+    version="1.0.4",
     author="Justin Dray",
     author_email="justin@dray.be",
     url="https://github.com/justin8/python-systemd-unit",

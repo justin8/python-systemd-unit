@@ -64,7 +64,14 @@ class Unit(object):
             subprocess.check_output(["systemctl"] + args, stderr=stderr)
         except subprocess.CalledProcessError as e:
             log.error("Failed to run systemctl with parameters {args}".format(args=args))
-            raise(e)
+            if e.args[0] == 5:
+                raise(
+                    FileNotFoundError(
+                        "Unable to find specified system service (args: {})".format(str(args))
+                        )
+                    ) from None
+            else:
+                raise(e)
 
     def reload(self):
         log.info("Reloading daemon files")
