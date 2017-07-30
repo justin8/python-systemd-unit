@@ -63,7 +63,7 @@ class Unit(object):
         try:
             subprocess.check_output(["systemctl"] + args, stderr=stderr)
         except subprocess.CalledProcessError as e:
-            log.error("Failed to run systemctl with parameters {args}".format(args=args))
+            log.warning("Failed to run systemctl with parameters {args}".format(args=args))
             if e.args[0] == 5:
                 raise(
                     FileNotFoundError(
